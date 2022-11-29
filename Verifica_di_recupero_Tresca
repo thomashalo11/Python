@@ -1,0 +1,158 @@
+"""
+Creare le funzioni per popolare il dizionario con le prenotazioni
+e le varie richieste.
+Ogni funzione avrà un ruolo preciso per poter essere implementato nel menù.
+"""
+import pprint
+pp=pprint.PrettyPrinter(indent=4)
+stabilimento={}
+
+
+
+# Functions
+# Controllare in caso se dopo devo far controllare anche se vale 0
+def nPrenotazioni():
+    nPrenotazioni=int(input("Inserire il numero di prenotazioni da effetture: "))
+    if(nPrenotazioni==0):
+        nPrenotazioni=int(input("Inserire il numero di prenotazioni da effettuare: "))
+    return nPrenotazioni
+# ------------------------------------------
+def richiestaPosizione():
+    fila=int(input("Inserire il numero della fila dell' ombrellone: "))
+    if(fila==0):
+        fila=int(input("Inserire il numero della fila dell' ombrellone: "))
+    numero=int(input("Inserire il numero dell' ombrellone: "))
+    if(numero==0):
+        numero=int(input("Inserire il numero dell' ombrellone: "))
+    return (fila,numero)
+# ------------------------------------------
+def richiestaPrezzo():
+    stagioneBassa=float(input("Inserire il prezzo base per la bassa stagione: "))
+    if(stagioneBassa==0):
+        stagioneBassa=float(input("Inserire il prezzo base per la bassa stagione: "))
+    stagioneAlta=float(input("Inserire il prezzo per l' alta stagione: "))
+    if(stagioneAlta==0):
+        stagioneAlta=float(input("Inserire il prezzo per l' alta stagione: "))
+    return (stagioneBassa,stagioneAlta)
+# ------------------------------------------
+def richiestaData():
+    giorno=int(input("Inserire il giorno del mese: "))
+    if(giorno==0):
+        giorno=int(input("Inserire il giorno del mese: "))
+    mese=int(input("Inserire il mese dell' anno: "))
+    if(mese==0):
+        mese=int(input("Inserire il mese dell' anno: "))
+    anno=int(input("Inserire l' anno: "))
+    if(anno==0):
+        anno=int(input("Inserire l' anno: "))
+    return (giorno,mese,anno)
+# ------------------------------------------
+def richiestaGiorni():
+    nGiorni=int(input("Inserire il numero di giorni: "))
+    if(nGiorni==0):
+        nGiorni=int(input("Inserire il numero di giorni: "))
+    return nGiorni
+# --a----------------------------------------
+def richiestaOpzione():
+    addOmbrellone=int(input("Inserire il numero di ombrelloni da aggiungere (0 se non si vuole aggiungere): "))
+    if(addOmbrellone==0):
+        addOmbrellone=int(input("Inserire il numero di ombrelloni da aggiungere (0 se non si vuole aggiungere): "))
+    addLettino=int(input("Inserire il numero di lettini da aggiungere (0 se non si vuole aggiungere): "))
+    if(addLettino==0):
+        addLettino=int(input("Inserire il numero di lettini da aggiungere (0 se non si vuole aggiungere): "))
+    if(addOmbrellone+addLettino==3):
+        print("Non puoi superare più di 3 aggiunte")
+    return (addOmbrellone,addLettino)
+# ------------------------------------------
+def richiestaTotale():
+    i=0
+    pBassa,pAlta=richiestaPrezzo()
+    giorno,mese,anno=richiestaData()
+    nGiorni=richiestaGiorni()
+    opt1,opt2=richiestaOpzione()
+    
+    if (mese==6 or mese==9):
+        prezzoQuasiFinale=pBassa
+    elif(mese==7 or mese==8):
+        prezzoQuasiFinale=pAlta
+    
+    if(opt1==0 and opt2==0):
+        print("Il prezzo è quello base")
+        prezzoTotale=prezzoQuasiFinale*nGiorni
+    else:
+        prezzoTotale=prezzoQuasiFinale*nGiorni+opt1*nGiorni*1/3(prezzoQuasiFinale)
+# ------------------------------------------
+def leggiChiave():
+    chiave=nPrenotazioni      
+    return chiave
+# ------------------------------------------
+# Main functions
+def popola():
+    i=0
+    numeroPrenotazioni=nPrenotazioni()
+    while(i<numeroPrenotazioni):
+        posizione=richiestaPosizione()
+        prezzo=richiestaPrezzo()
+        data=richiestaData()
+        giorni=richiestaGiorni()
+        opzione=richiestaOpzione()
+        totale=richiestaTotale()
+        
+    stabilimento[numeroPrenotazioni]=[(posizione),(prezzo),(data), giorni, (opzione), totale]
+    pp.pprint(stabilimento)
+    return stabilimento
+# ------------------------------------------
+def posizione():
+    posizione=richiestaPosizione()
+    pp.pprint(stabilimento(posizione))
+# Da controllare
+# ------------------------------------------
+def printAll():
+    keys=stabilimento.keys()
+    value=stabilimento.values()
+    
+    for key, value in stabilimento.items():
+        pp.pprint(key, ' : ', value)
+# ------------------------------------------
+def modificaPrezzo():
+    chiave=leggiChiave()
+    if chiave not in stabilimento.keys():
+        print("La prenotazione indicata non esiste")
+    else:
+        pp.pprint(stabilimento[chiave])
+        
+    posizione=richiestaPosizione()
+    prezzo=richiestaPrezzo()
+    data=richiestaData()
+    giorni=richiestaGiorni()
+    opzione=richiestaOpzione()
+    
+    if posizione!="":
+        stabilimento[chiave][0]=posizione
+    if prezzo!="":
+        stabilimento[chiave][1]=prezzo
+    if data!="":
+        stabilimento[chiave][2]=data
+    if giorni!="":
+        stabilimento[chiave][3]=giorni
+    if opzione!="":
+        stabilimento[chiave][4]=opzione
+
+
+scelta=1
+while (scelta!=0):
+  print('0) Esci')
+  print('1) Popola')
+  print('2) Visualizza per posizione')
+  print('3) Stampa tutto')
+  print('4) Modifica')
+
+  scelta=int(input('Scegli :'))
+  if scelta==1:
+    popola()
+  elif scelta==2:
+    posizione()
+  elif scelta==3:
+    printAll()
+  elif scelta==4:
+    modificaPrezzo()
